@@ -1,5 +1,7 @@
 const { OpenAI } = require("openai");
 const { Client } = require("pg");
+const { checkEmbeddingValid } = require("./embeddings_utils.js");
+
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -17,7 +19,7 @@ async function main() {
 
     console.log("Connected to Postgres");
 
-    let id = 30043514;
+    let id = 0;
     let length = 0;
     let totalCnt = 0;
 
@@ -58,25 +60,6 @@ async function main() {
 
     console.log(`Finished generating embeddings for ${totalCnt} rows`);
     process.exit(0);
-}
-
-function checkEmbeddingValid(embedding) {
-    if (embedding == undefined || embedding.data == undefined || embedding.data[0].embedding == undefined) {
-        console.log("Error generating an embedding: " + JSON.stringify(embedding));
-        return false;
-    }
-
-    if (embedding.data.length > 1) {
-        console.log("Unsupported: more than one embedding returned: " + JSON.stringify(embedding));
-        return false;
-    }
-
-    if (embedding.data[0].embedding.length != 1536) {
-        console.log("Unsupported: embedding length is not 1536: " + JSON.stringify(embedding.data[0].embedding.length));
-        return false;
-    }
-
-    return true;
 }
 
 main();
