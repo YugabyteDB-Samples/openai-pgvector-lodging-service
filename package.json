@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/YugabyteDB-Samples/openai-lodging-service#readme",
   "dependencies": {
-    "openai": "^4.8.0"
+    "openai": "^4.8.0",
+    "pg": "^8.11.3"
   }
 }

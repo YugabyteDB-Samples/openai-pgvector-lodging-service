@@ -9,3 +9,12 @@ We're traveling to San Francisco from October 21st through 28th
 and looking for a hotel with a view of the Bay near the Fisherman Wharf.We need a refrigerator and a hair dryer.
 
 Sample data set: https://data.world/bookmarks
+
+
+Airbnb
+
+Apartments nearby the Golden Gate Bridge with a view of the Bay.
+
+A hotel in San Francisco with a view of the Bay near the Fisherman Wharf.
+
+An apartment near the Salesforce Tower in a walking distance to the Blue Bottle Coffee.
