@@ -1,23 +1,25 @@
 {
-  "name": "openai-lodging-service",
-  "version": "1.0.0",
-  "description": "An OpenAI-based lodging service",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YugabyteDB-Samples/openai-lodging-service.git"
-  },
-  "author": "Denis Magda",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/YugabyteDB-Samples/openai-lodging-service/issues"
-  },
-  "homepage": "https://github.com/YugabyteDB-Samples/openai-lodging-service#readme",
-  "dependencies": {
-    "openai": "^4.8.0",
-    "pg": "^8.11.3"
-  }
+    "name": "openai-lodging-service",
+    "version": "1.0.0",
+    "description": "An OpenAI-based lodging service",
+    "main": "backend/index.js",
+    "scripts": {
+        "start": "node backend/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YugabyteDB-Samples/openai-lodging-service.git"
+    },
+    "author": "Denis Magda",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/YugabyteDB-Samples/openai-lodging-service/issues"
+    },
+    "homepage": "https://github.com/YugabyteDB-Samples/openai-lodging-service#readme",
+    "dependencies": {
+        "express": "^4.18.2",
+        "openai": "^4.8.0",
+        "pg": "^8.11.3"
+    }
 }
