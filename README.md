@@ -52,6 +52,8 @@ You can populate the Airbnb listings table with sample data in two ways.
     ```
 3. Launch the embeddings generator:
     ```shell
+    npm i 
+
     cd {project_dir}/backend
     node embeddings_generator.js
     ```
@@ -76,12 +78,14 @@ You can populate the Airbnb listings table with sample data in two ways.
 
 2. Initiate the Node.js backend:
     ```shell
+    npm i 
     cd {project_dir}/backend
     npm start
     ```
 3. Start the React frontend:
     ```shell
     cd {project_dir}/backend
+    npm i
     npm start
     ```
 
