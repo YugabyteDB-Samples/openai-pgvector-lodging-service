@@ -1,7 +1,8 @@
-# openai-lodging-service
-A lodging service that recommends a hotel or Arbnb property based on a customer request
+# Lodging Recommendation Service With OpenAI, PostgreSQL and YugabyteDB
 
-```shell
-npm install openai
-npm install pg
-```
+This is a sample Node.JS + React application demonstrating how to build AI apps with OpenAI, Postgres and YugabyteDB.
+
+The app recommends various lodging options for those traveling to San Francisco. It supports two modes:
+
+
+
