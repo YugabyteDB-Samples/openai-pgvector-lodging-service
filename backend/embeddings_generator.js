@@ -2,9 +2,9 @@ const { OpenAI } = require("openai");
 const { Client } = require("pg");
 const { checkEmbeddingValid } = require("./embeddings_utils.js");
 
-const { PropertiesReader } = require('properties-reader');
+const PropertiesReader = require('properties-reader');
 
-const properties = PropertiesReader('application.properties.ini');
+const properties = PropertiesReader(__dirname + '/../application.properties.ini');
 
 const openai = new OpenAI({ apiKey: properties.get('OPENAI_API_KEY') });
 

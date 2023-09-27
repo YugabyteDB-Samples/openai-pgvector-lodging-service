@@ -1,9 +1,0 @@
-==== Example prompts ===
-
-We're traveling to San Francisco from October 21st through 28th. We need a hotel with parking.
-
-Apartments nearby the Golden Gate Bridge with a view of the Bay.
-
-I'd like to stay in a hotel with a view of the Bay near the Fisherman Wharf.
-
-An apartment near the Salesforce Tower in a walking distance to the Blue Bottle Coffee.
