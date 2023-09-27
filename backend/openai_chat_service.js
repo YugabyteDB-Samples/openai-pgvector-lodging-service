@@ -1,4 +1,7 @@
 const { OpenAI } = require("openai");
+const { PropertiesReader } = require('properties-reader');
+
+const properties = PropertiesReader('application.properties.ini');
 
 class OpenAIChatService {
     #openai;
@@ -6,7 +9,7 @@ class OpenAIChatService {
     constructor() { }
 
     connect() {
-        this.#openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+        this.#openai = new OpenAI({ apiKey: properties.get('OPENAI_API_KEY') });
     }
 
     async searchPlaces(prompt) {

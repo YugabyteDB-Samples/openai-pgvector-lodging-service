@@ -1,17 +1,20 @@
 const { OpenAI } = require("openai");
 const { Client } = require("pg");
 const { checkEmbeddingValid } = require("./embeddings_utils.js");
+const { PropertiesReader } = require('properties-reader');
+
+const properties = PropertiesReader('application.properties.ini');
 
 class PostgresEmbeddingsService {
 
     #openai;
 
     #pgEndpoint = {
-        host: "localhost",
-        port: 5432,
-        database: "postgres",
-        user: "postgres",
-        password: "password"
+        host: properties.get('DATABASE_HOST'),
+        port: properties.get('DATABASE_PORT'),
+        database: properties.get('DATABASE_NAME'),
+        user: properties.get('DATABASE_USER'),
+        password: properties.get('DATABASE_PASSWORD')
     };
 
     #client;
@@ -19,7 +22,7 @@ class PostgresEmbeddingsService {
     constructor() { }
 
     async connect() {
-        this.#openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+        this.#openai = new OpenAI({ apiKey: properties.get('OPENAI_API_KEY') });
         this.#client = new Client(this.#pgEndpoint);
 
         await this.#client.connect();

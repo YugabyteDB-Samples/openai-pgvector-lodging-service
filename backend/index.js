@@ -1,8 +1,11 @@
 const express = require('express');
 const { PostgresEmbeddingsService } = require('./postgres_embeddings_service.js');
 const { OpenAIChatService } = require('./openai_chat_service.js');
+const { PropertiesReader } = require('properties-reader');
 
-const PORT = process.env.PORT || 3001;
+const properties = PropertiesReader('application.properties.ini');
+
+const PORT = properties.get('EXPRESS_SERVER_PORT');
 
 const postgresService = new PostgresEmbeddingsService();
 const openaiService = new OpenAIChatService();

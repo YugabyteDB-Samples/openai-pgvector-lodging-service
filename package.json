@@ -21,6 +21,7 @@
         "create-react-app": "^5.0.1",
         "express": "^4.18.2",
         "openai": "^4.8.0",
-        "pg": "^8.11.3"
+        "pg": "^8.11.3",
+        "properties-reader": "^2.3.0"
     }
 }
