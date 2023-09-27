@@ -44,7 +44,11 @@ function PromptForm() {
 
         fetch('/search?engine=' + searchServiceOption.value + '&prompt=' + prompt).
             then((response) => {
-                response.json().then(function (data) { setSuggestedPlaces(data); });
+                if (!response.ok) {
+                    throw new Error(response.status + ' ' + response.statusText);
+                } else {
+                    response.json().then(function (data) { setSuggestedPlaces(data); });
+                }
             }).catch((error) => {
                 alert('Oops, something went wrong: ' + error.message);
             }).finally(() => {

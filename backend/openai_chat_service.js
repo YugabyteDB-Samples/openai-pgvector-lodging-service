@@ -17,7 +17,7 @@ class OpenAIChatService {
             messages: [
                 {
                     role: "system", content:
-                        "You're a helpful assistant that helps to find lodging. Suggest three options. Send back a JSON object in the format below." +
+                        "You're a helpful assistant that helps to find lodging in San Francisco. Suggest three options. Send back a JSON object in the format below." +
                         "[{\"name\": \"<hotel name>\", \"description\": \"<hotel description>\", \"price\": <hotel price>}]" +
                         "Don't add any other text to the response. Don't add the new line or any other symbols to the response, just the raw JSON."
                 },
