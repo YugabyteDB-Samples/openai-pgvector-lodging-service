@@ -1,7 +1,7 @@
 const { OpenAI } = require("openai");
-const { PropertiesReader } = require('properties-reader');
+const PropertiesReader = require('properties-reader');
 
-const properties = PropertiesReader('application.properties.ini');
+const properties = PropertiesReader(__dirname + '/../application.properties.ini');
 
 class OpenAIChatService {
     #openai;
