@@ -92,6 +92,8 @@ Enjoy exploring the app and toggling between the two modes: *OpenAI Chat* and *P
 
 **Note**: Ensure you request recommendations specifically for lodging in San Francisco, as this is the AI's primary focus.
 
+![app_screenshot](https://github.com/YugabyteDB-Samples/openai-lodging-service/assets/1537233/dfedf695-c6e1-43ae-bfd4-f75e9ad03f68)
+
 Here are some sample prompts to get you started:
 ```
 We're traveling to San Francisco from October 21st through 28th. We need a hotel with parking.
