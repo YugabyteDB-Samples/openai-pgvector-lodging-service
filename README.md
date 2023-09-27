@@ -4,7 +4,7 @@ This is a sample Node.JS and React application that demonstrates how to build AI
 
 The app provides recommendations for various lodging options for travelers heading to San Francisco. It operates in two distinct modes:
 
-![openai_lodging](https://github.com/YugabyteDB-Samples/openai-lodging-service/assets/1537233/97edce33-000d-4842-b7c7-f8a229862573)
+![openai_lodging](https://github.com/YugabyteDB-Samples/openai-pgvector-lodging-service/assets/1537233/f4280cb4-a55c-440f-97be-4da8c47c932e)
 
 * *OpenAI Chat Mode*: In this mode, the Node.js backend leverages the OpenAI Chat Completion API and the GPT-4 model to generate lodging recommendations based on the user's input.
 * *Postgres Embeddings Mode*: Initially, the backend employs the OpenAI Embeddings API to generate an embedding from the user's input. Subsequently, the server utilizes the PostgreSQL pgvector extension to perform a vector search among the sample Airbnb properties stored in the database.
@@ -96,7 +96,7 @@ Enjoy exploring the app and toggling between the two modes: *OpenAI Chat* and *P
 
 **Note**: Ensure you request recommendations specifically for lodging in San Francisco, as this is the AI's primary focus.
 
-![app_screenshot](https://github.com/YugabyteDB-Samples/openai-lodging-service/assets/1537233/dfedf695-c6e1-43ae-bfd4-f75e9ad03f68)
+![app_screenshot](https://github.com/YugabyteDB-Samples/openai-pgvector-lodging-service/assets/1537233/58c573d6-7632-4cf4-96e1-066d3b0c6314)
 
 Here are some sample prompts to get you started:
 ```
