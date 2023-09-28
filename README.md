@@ -160,7 +160,7 @@ Here are some sample prompts to get you started:
 ```
 We're traveling to San Francisco from October 21st through 28th. We need a hotel with parking.
 
-Apartments near the Golden Gate Bridge with a Bay view.
+I'm looking for an apartment near the Golden Gate Bridge with a Bay view.
 
 I'd like a hotel near Fisherman's Wharf with a Bay view.
 
