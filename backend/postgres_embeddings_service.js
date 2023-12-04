@@ -47,7 +47,7 @@ class PostgresEmbeddingsService {
 
         const res = await this.#client.query(
             "SELECT name, description, price, 1 - (description_embedding <=> $1) as similarity " +
-            "FROM airbnb_listing WHERE 1 - (description_embedding <=> $1) > $2 ORDER BY similarity DESC LIMIT $3",
+            "FROM airbnb_listing WHERE 1 - (description_embedding <=> $1) > $2 ORDER BY description_embedding <=> $1 LIMIT $3",
             ['[' + embeddingResp.data[0].embedding + ']', matchThreshold, matchCnt]);
 
         let places = [];
