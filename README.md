@@ -142,7 +142,7 @@ You can populate the Airbnb listings table with sample data in two ways.
     ```
 3. Start the React frontend:
     ```shell
-    cd {project_dir}/backend
+    cd {project_dir}/frontend
     npm i
     npm start
     ```
