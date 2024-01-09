@@ -2,9 +2,9 @@
     "name": "openai-lodging-service",
     "version": "1.0.0",
     "description": "A lodging recommendation service for properties in San Francisco, powered by OpenAI and the PostgreSQL pgvector extension.",
-    "main": "backend/index.js",
+    "main": "index.js",
     "scripts": {
-        "start": "node backend/index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

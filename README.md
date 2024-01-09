@@ -25,25 +25,25 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
 
     docker network create custom-network
 
-    docker run -d --name yugabytedb_node1 --net custom-network \
+    docker run -d --name yugabytedb-node1 --net custom-network \
         -p 15433:15433 -p 7001:7000 -p 9001:9000 -p 5433:5433 \
         -v ~/yb_docker_data/node1:/home/yugabyte/yb_data --restart unless-stopped \
         yugabytedb/yugabyte:2.19.2.0-b121 \
         bin/yugabyted start \
         --base_dir=/home/yugabyte/yb_data --daemon=false
     
-    docker run -d --name yugabytedb_node2 --net custom-network \
+    docker run -d --name yugabytedb-node2 --net custom-network \
         -p 15434:15433 -p 7002:7000 -p 9002:9000 -p 5434:5433 \
         -v ~/yb_docker_data/node2:/home/yugabyte/yb_data --restart unless-stopped \
         yugabytedb/yugabyte:2.19.2.0-b121 \
-        bin/yugabyted start --join=yugabytedb_node1 \
+        bin/yugabyted start --join=yugabytedb-node1 \
         --base_dir=/home/yugabyte/yb_data --daemon=false
         
-    docker run -d --name yugabytedb_node3 --net custom-network \
+    docker run -d --name yugabytedb-node3 --net custom-network \
         -p 15435:15433 -p 7003:7000 -p 9003:9000 -p 5435:5433 \
         -v ~/yb_docker_data/node3:/home/yugabyte/yb_data --restart unless-stopped \
         yugabytedb/yugabyte:2.19.2.0-b121 \
-        bin/yugabyted start --join=yugabytedb_node1 \
+        bin/yugabyted start --join=yugabytedb-node1 \
         --base_dir=/home/yugabyte/yb_data --daemon=false
     ```
 2. Run the script to create the Airbnb listings table and activate the pgvector extension:
@@ -64,12 +64,12 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
 
 1. Launch a Postgres instance using the docker image with pgvector:
     ```shell
-    mkdir ~/postgresql_data/
+    mkdir ~/postgres-volume/
 
     docker run --name postgresql \
         -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password \
         -p 5432:5432 \
-        -v ~/postgresql_data/:/var/lib/postgresql/data -d ankane/pgvector:latest
+        -v ~/postgres-volume/:/var/lib/postgresql/data -d ankane/pgvector:latest
     ```
 
 2. Run the script to create the Airbnb listings table and activate the pgvector extension:
@@ -136,8 +136,8 @@ You can populate the Airbnb listings table with sample data in two ways.
 
 2. Initiate the Node.js backend:
     ```shell
+    cd {project_dir}/backend/node-pg
     npm i 
-    cd {project_dir}/backend
     npm start
     ```
 3. Start the React frontend:
