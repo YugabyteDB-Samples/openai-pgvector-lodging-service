@@ -25,14 +25,15 @@ public class EmbeddingService {
 
     public List<Place> searchInPostgres(String prompt, float matchThreshold, int matchCnt) {
         List<Double> promptEmbedding = aiClient.embed(prompt);
-
+        
         StatementSpec query = jdbcClient.sql(
                 "SELECT name, description, price, 1 - (description_embedding <=> :user_promt::vector) as similarity " +
                         "FROM airbnb_listing WHERE 1 - (description_embedding <=> :user_promt::vector) > :match_threshold "
                         +
                         "ORDER BY description_embedding <=> :user_promt::vector LIMIT :match_cnt")
-                .param(Map.of("user_promt", promptEmbedding.toString(), "match_threshold", matchThreshold,
-                        "match_cnt", matchCnt));
+                .param("user_promt", promptEmbedding.toString())
+                .param("match_threshold", matchThreshold)
+                .param("match_cnt", matchCnt);
 
         return query.query(Place.class).list();
     }
