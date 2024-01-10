@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import com.lodging.service.model.Place;
 
 @Service
-public class EmbeddingService {
+public class EmbeddingService implements LodgingService {
+    private static final float MATCH_THRESHOLD = 0.7f;
+    private static final int MATCH_CNT = 3;
+
     private JdbcClient jdbcClient;
 
     private EmbeddingClient aiClient;
@@ -23,7 +26,7 @@ public class EmbeddingService {
         this.aiClient = aiClient;
     }
 
-    public List<Place> searchInPostgres(String prompt, float matchThreshold, int matchCnt) {
+    public List<Place> searchPlaces(String prompt) {
         List<Double> promptEmbedding = aiClient.embed(prompt);
         
         StatementSpec query = jdbcClient.sql(
@@ -32,8 +35,8 @@ public class EmbeddingService {
                         +
                         "ORDER BY description_embedding <=> :user_promt::vector LIMIT :match_cnt")
                 .param("user_promt", promptEmbedding.toString())
-                .param("match_threshold", matchThreshold)
-                .param("match_cnt", matchCnt);
+                .param("match_threshold", MATCH_THRESHOLD)
+                .param("match_cnt", MATCH_CNT);
 
         return query.query(Place.class).list();
     }

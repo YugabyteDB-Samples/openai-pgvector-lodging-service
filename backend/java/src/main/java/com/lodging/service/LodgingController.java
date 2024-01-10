@@ -29,11 +29,10 @@ public class LodgingController {
     @GetMapping("/search")
     public List<Place> searchPlaces(@RequestParam("prompt") String prompt, @RequestParam("engine") String serviceType) {
         if (serviceType.equals("postgres")) {
-            return embeddingService.searchInPostgres(prompt, MATCH_THRESHOLD, MATCH_CNT);
-
+            return embeddingService.searchPlaces(prompt);
+            
         } else if (serviceType.equals("openai_chat")) {
-            return null;
-
+            return chatService.searchPlaces(prompt);
         } else {
             throw new IllegalArgumentException("Unknown service type: " + serviceType);
         }
