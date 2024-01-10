@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.prompt.Prompt;
-import org.springframework.ai.prompt.messages.Message;
 import org.springframework.ai.prompt.messages.SystemMessage;
 import org.springframework.ai.prompt.messages.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;

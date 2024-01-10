@@ -11,7 +11,8 @@ The app provides recommendations for various lodging options for travelers headi
 
 ## Prerequisites
 
-* CA ChatGPT Plus subscription (required if you've exhausted the initial free credits): https://platform.openai.com
+* [OpenAI API key](https://platform.openai.com)
+* [git-lfs](https://github.com/git-lfs/git-lfs)
 
 ## Start the Database
 
@@ -72,82 +73,31 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
         -v ~/postgres-volume/:/var/lib/postgresql/data -d ankane/pgvector:latest
     ```
 
-2. Run the script to create the Airbnb listings table and activate the pgvector extension:
+2. Copy the Airbnb schema and data to the container:
     ```shell
-    psql -h 127.0.0.1 -U postgres -d postgres -a -q -f {project_dir}/sql/airbnb_listings.sql
+    docker cp {project_dir}/sql/airbnb_listings.sql postgres:/home
+    docker cp {project_dir}/sql/airbnb_listings_with_embeddings.csv postgres:/home
     ```
 
-## Loading the Sample Data Set
-
-You can populate the Airbnb listings table with sample data in two ways.
-
-**First Option**: Preload the original sample data set without embeddings, then utilize the OpenAI Embeddings API to generate embeddings for Airbnb listing descriptions. This method may take over 10 minutes:
-
-1. Connect to the database using psql:
+3. Load the dataset to Postgres (note, it can take a minute to load the data):
     ```shell
-    # For YugabyteDB
-    psql -h 127.0.0.1 -p 5433 -U yugabyte
-
-    # For Postgres 
-    psql -h 127.0.0.1 -U postgres
-    ```
-2. Load the orignal Airbnb data set:
-    ```sql
-    alter table airbnb_listing drop column description_embedding;
-    \copy airbnb_listing from '{project_dir}/sql/sf_airbnb_listings.csv' DELIMITER ',' CSV HEADER;
-    alter table airbnb_listing add column description_embedding vector(1536);
-    ```
-3. Provide your OpenAI API Key in the `{project_dir}/application.properties.ini` file:
-    ```shell
-    OPENAI_API_KEY=<your key>
-    ```
-4. Launch the embeddings generator:
-    ```shell
-    npm i 
-
-    cd {project_dir}/backend
-    node embeddings_generator.js
-    ```
-
-**Second Option**: Download the Airbnb data set with pre-generated embeddings and import it into the database:
-
-1. Download the data set (170 MB): https://drive.google.com/file/d/1DV8OMoiTd-7PSo78yN82CP40kLce0gx-/view?usp=sharing
-
-2. Connect to the database with psql:
-    ```shell
-    # For YugabyteDB
-    psql -h 127.0.0.1 -p 5433 -U yugabyte
-
-    # For Postgres 
-    psql -h 127.0.0.1 -U postgres
-    ```
-
-2. Import the data set into the database:
-    ```sql
-    \copy airbnb_listing from '{full_path_to_the_file}/airbnb_listings_with_embeddings.csv' with DELIMITER '^' CSV;
+    docker exec -it postgres psql -U postgres -c '\i /home/airbnb_listings.sql'
+    docker exec -it postgres psql -U postgres \
+        -c "\copy airbnb_listing from /home/airbnb_listings_with_embeddings.csv with DELIMITER '^' CSV"
     ```
 
 ## Starting the Application
 
-1. Update the `{project_dir}/application.properties.ini` file with your OpenAI API Key:
-    ```shell
-    OPENAI_API_KEY=<your key>
-    ```
-
-2. Initiate the Node.js backend:
-    ```shell
-    cd {project_dir}/backend/node-pg
-    npm i 
-    npm start
-    ```
-3. Start the React frontend:
+1. Start one of the available backend implementations:
+    * [Java backend](backend/java/README.md)
+    * [Node.js backend](backend/node/README.md)
+2. Start the React frontend:
     ```shell
     cd {project_dir}/frontend
     npm i
     npm start
     ```
-
-4. Access the application's user interface at:
+3. Access the application's user interface at:
     http://localhost:3000
 
 Enjoy exploring the app and toggling between the two modes: *OpenAI Chat* and *Postgres Embeddings*. The latter is significantly faster.
