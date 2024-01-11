@@ -3,9 +3,8 @@ const { Client } = require("pg");
 const { checkEmbeddingValid } = require("./embeddings_utils.js");
 const PropertiesReader = require('properties-reader');
 
-const properties = PropertiesReader(__dirname + '/../application.properties.ini');
+const properties = PropertiesReader(__dirname + '/application.properties.ini');
 
-console.log("Properties file " + __dirname + '/../application.properties.ini');
 class PostgresEmbeddingsService {
 
     #openai;

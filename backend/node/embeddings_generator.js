@@ -4,7 +4,7 @@ const { checkEmbeddingValid } = require("./embeddings_utils.js");
 
 const PropertiesReader = require('properties-reader');
 
-const properties = PropertiesReader(__dirname + '/../application.properties.ini');
+const properties = PropertiesReader(__dirname + '/application.properties.ini');
 
 const openai = new OpenAI({ apiKey: properties.get('OPENAI_API_KEY') });
 
