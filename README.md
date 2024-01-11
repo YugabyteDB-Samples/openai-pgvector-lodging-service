@@ -1,10 +1,10 @@
 # Lodging Recommendation Service With OpenAI and PostgreSQL pgvector extension
 
-This is a sample Node.JS and React application that demonstrates how to build AI-powered apps using the OpenAI API and PostgreSQL pgvector extension.
+This sample app shows how to build generative AI apps using OpenAI API and the PostgreSQL pgvector extension.
 
 The app provides recommendations for various lodging options for travelers heading to San Francisco. It operates in two distinct modes:
 
-![openai_lodging-2](https://github.com/YugabyteDB-Samples/openai-pgvector-lodging-service/assets/1537233/99d8c571-bf6c-4bab-970c-5df9f6a76080)
+![openai_lodging](https://github.com/YugabyteDB-Samples/openai-pgvector-lodging-service/assets/1537233/d070dfe1-50f9-4191-ae43-c80ba61deb2a)
 
 * *OpenAI Chat Mode*: In this mode, the backend leverages the OpenAI Chat Completion API and the GPT-4 model to generate lodging recommendations based on the user's input.
 * *Postgres Embeddings Mode*: Initially, the backend employs the OpenAI Embeddings API to generate an embedding from the user's input. Subsequently, the server utilizes the PostgreSQL pgvector extension to perform a vector search among the sample Airbnb properties stored in the database. You can use PostgreSQL or YugabyteDB.
