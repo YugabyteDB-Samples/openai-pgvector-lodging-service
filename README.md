@@ -22,43 +22,42 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
 
 1. Launch a 3-node YugabyteDB cluster of version 2.19.2.0 or later:
     ```shell
-    mkdir ~/yb_docker_data
+    mkdir ~/yugabyte_volume
 
     docker network create custom-network
 
     docker run -d --name yugabytedb-node1 --net custom-network \
         -p 15433:15433 -p 7001:7000 -p 9001:9000 -p 5433:5433 \
-        -v ~/yb_docker_data/node1:/home/yugabyte/yb_data --restart unless-stopped \
-        yugabytedb/yugabyte:2.19.2.0-b121 \
+        -v ~/yugabyte_volume/node1:/home/yugabyte/yb_data --restart unless-stopped \
+        yugabytedb/yugabyte:latest \
         bin/yugabyted start \
         --base_dir=/home/yugabyte/yb_data --daemon=false
     
     docker run -d --name yugabytedb-node2 --net custom-network \
         -p 15434:15433 -p 7002:7000 -p 9002:9000 -p 5434:5433 \
-        -v ~/yb_docker_data/node2:/home/yugabyte/yb_data --restart unless-stopped \
-        yugabytedb/yugabyte:2.19.2.0-b121 \
+        -v ~/yugabyte_volume/node2:/home/yugabyte/yb_data --restart unless-stopped \
+        yugabytedb/yugabyte:latest \
         bin/yugabyted start --join=yugabytedb-node1 \
         --base_dir=/home/yugabyte/yb_data --daemon=false
         
     docker run -d --name yugabytedb-node3 --net custom-network \
         -p 15435:15433 -p 7003:7000 -p 9003:9000 -p 5435:5433 \
-        -v ~/yb_docker_data/node3:/home/yugabyte/yb_data --restart unless-stopped \
-        yugabytedb/yugabyte:2.19.2.0-b121 \
+        -v ~/yugabyte_volume/node3:/home/yugabyte/yb_data --restart unless-stopped \
+        yugabytedb/yugabyte:latest \
         bin/yugabyted start --join=yugabytedb-node1 \
         --base_dir=/home/yugabyte/yb_data --daemon=false
     ```
-2. Run the script to create the Airbnb listings table and activate the pgvector extension:
+2. Copy the Airbnb schema and data to the first node's container:
     ```shell
-    psql -h 127.0.0.1 -p 5433 -U yugabyte -d yugabyte {project_dir}/sql/airbnb_listings.sql
+    docker cp {project_dir}/sql/airbnb_listings.sql yugabytedb-node1:/home
+    docker cp {project_dir}/sql/airbnb_listings_with_embeddings.csv yugabytedb-node1:/home
     ```
 
-3. Update the default database connectivity settings in the `{project_dir}/application.properties.ini` file to the following:
-    ```properties
-    DATABASE_HOST=localhost
-    DATABASE_PORT=5433
-    DATABASE_NAME=yugabyte
-    DATABASE_USER=yugabyte
-    DATABASE_PASSWORD=yugabyte
+3. Load the dataset to the cluster (note, it can take a minute to load the data):
+    ```shell
+    docker exec -it yugabytedb-node1 bin/ysqlsh -h yugabytedb-node1 -c '\i /home/airbnb_listings.sql'
+    docker exec -it yugabytedb-node1 bin/ysqlsh -h yugabytedb-node1 \
+        -c "\copy airbnb_listing from /home/airbnb_listings_with_embeddings.csv with DELIMITER '^' CSV"
     ```
 
 ### PostgreSQL
