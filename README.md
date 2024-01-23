@@ -54,6 +54,8 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
     docker cp {project_dir}/sql/airbnb_listings.sql yugabytedb-node1:/home
     docker cp {project_dir}/sql/airbnb_listings_with_embeddings.csv yugabytedb-node1:/home
     ```
+    *Make sure you have the git-lfs installed at the time you clone the project. The `airbnb_listings_with_embeddings.csv` file is stored in the Git Large File Storage.*
+
 
 3. Load the dataset to the cluster (note, it can take a minute to load the data):
     ```shell
@@ -79,8 +81,10 @@ The pgvector extension is supported by both PostgresSQL and YugabyteDB. Follow t
     docker cp {project_dir}/sql/airbnb_listings.sql postgres:/home
     docker cp {project_dir}/sql/airbnb_listings_with_embeddings.csv postgres:/home
     ```
+    *Make sure you have the git-lfs installed at the time you clone the project. The `airbnb_listings_with_embeddings.csv` file is stored in the Git Large File Storage.*
 
-3. Load the dataset to Postgres (note, it can take a minute to load the data):
+
+4. Load the dataset to Postgres (note, it can take a minute to load the data):
     ```shell
     docker exec -it postgres psql -U postgres -c '\i /home/airbnb_listings.sql'
     docker exec -it postgres psql -U postgres \
