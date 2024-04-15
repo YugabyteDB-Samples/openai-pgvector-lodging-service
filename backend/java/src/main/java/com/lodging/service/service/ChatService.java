@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.ChatResponse;
-import org.springframework.ai.prompt.Prompt;
-import org.springframework.ai.prompt.messages.SystemMessage;
-import org.springframework.ai.prompt.messages.UserMessage;
+import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.messages.*;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +35,9 @@ public class ChatService implements LodgingService {
     public List<Place> searchPlaces(String prompt) {
         Prompt chatPrompt = new Prompt(List.of(SYSTEM_MESSAGE, new UserMessage(prompt)));
 
-        ChatResponse response = aiClient.generate(chatPrompt);
+        ChatResponse response = aiClient.call(chatPrompt);
 
-        String rawJson = response.getGenerations().get(0).getContent();
+        String rawJson = response.getResult().getOutput().getContent();
         Place[] places = new Gson().fromJson(rawJson, Place[].class);
 
         return List.of(places);
